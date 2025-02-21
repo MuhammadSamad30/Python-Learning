@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python - Advanced Level</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">🐍 Python Learning</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="beginner.html">Beginner</a></li>
+            <li><a href="intermediate.html">Intermediate</a></li>
+            <li><a href="advanced.html" class="active">Advanced</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Advanced <span class="highlight">Python</span></h1>
+        </header>
+
+        <div class="tutorial-content">
+            <section class="topic">
+                <h2>1. Metaclasses</h2>
+                <p>Metaclasses are classes for classes. They allow you to customize class creation and modify class behavior.</p>
+                <div class="code-container">
+                    <pre><code>
+class MetaLogger(type):
+    def __new__(cls, name, bases, attrs):
+        # Add logging to all methods
+        for key, value in attrs.items():
+            if callable(value):
+                attrs[key] = cls.log_call(value)
+        return super().__new__(cls, name, bases, attrs)
+    
+    @staticmethod
+    def log_call(func):
+        def wrapper(*args, **kwargs):
+            print(f"Calling {func.__name__}")
+            return func(*args, **kwargs)
+        return wrapper
+
+class MyClass(metaclass=MetaLogger):
+    def my_method(self):
+        return "Hello!"</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>2. Descriptors</h2>
+                <p>Descriptors define how attribute access is handled. They're the mechanism behind properties and methods.</p>
+                <div class="code-container">
+                    <pre><code>
+class ValidString:
+    def __set_name__(self, owner, name):
+        self.name = name
+
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self
+        return instance.__dict__.get(self.name, "")
+
+    def __set__(self, instance, value):
+        if not isinstance(value, str):
+            raise TypeError("Value must be a string")
+        instance.__dict__[self.name] = value
+
+class Person:
+    name = ValidString()
+    def __init__(self, name):
+        self.name = name</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>3. Coroutines and Async Programming</h2>
+                <p>Asynchronous programming enables concurrent execution. Coroutines handle async operations efficiently.</p>
+                <div class="code-container">
+                    <pre><code>
+import asyncio
+
+async def fetch_data(url):
+    print(f"Fetching {url}")
+    await asyncio.sleep(1)  # Simulate network delay
+    return f"Data from {url}"
+
+async def main():
+    tasks = [
+        fetch_data("url1"),
+        fetch_data("url2"),
+        fetch_data("url3")
+    ]
+    results = await asyncio.gather(*tasks)
+    print(results)
+
+asyncio.run(main())</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>4. Memory Management and Garbage Collection</h2>
+                <p>Understanding Python's memory management. Control garbage collection and optimize memory usage.</p>
+                <div class="code-container">
+                    <pre><code>
+import gc
+import weakref
+
+class ExpensiveObject:
+    def __init__(self, name):
+        self.name = name
+    
+    def __del__(self):
+        print(f"{self.name} is being deleted")
+
+# Create weak reference
+obj = ExpensiveObject("my_object")
+r = weakref.ref(obj)
+
+# Force garbage collection
+gc.collect()
+print(gc.get_count())</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>5. Abstract Base Classes</h2>
+                <p>Define interfaces and enforce implementation. ABCs ensure derived classes implement required methods.</p>
+                <div class="code-container">
+                    <pre><code>
+from abc import ABC, abstractmethod
+
+class Database(ABC):
+    @abstractmethod
+    def connect(self):
+        pass
+    
+    @abstractmethod
+    def query(self, sql):
+        pass
+
+class PostgreSQL(Database):
+    def connect(self):
+        return "Connected to PostgreSQL"
+    
+    def query(self, sql):
+        return f"Executing: {sql}"</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>6. Multi-threading and Multiprocessing</h2>
+                <p>Parallel execution using threads and processes. Handle concurrent tasks and maximize CPU usage.</p>
+                <div class="code-container">
+                    <pre><code>
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+import time
+
+def cpu_bound(n):
+    return sum(i * i for i in range(n))
+
+def io_bound(seconds):
+    time.sleep(seconds)
+    return f"Slept for {seconds} seconds"
+
+# Thread pool for IO-bound tasks
+with ThreadPoolExecutor() as executor:
+    results = executor.map(io_bound, [1, 2, 3])
+
+# Process pool for CPU-bound tasks
+with ProcessPoolExecutor() as executor:
+    results = executor.map(cpu_bound, [1000000] * 4)</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>7. Design Patterns</h2>
+                <p>Implement common design patterns. Solve recurring design problems with proven solutions.</p>
+                <div class="code-container">
+                    <pre><code>
+# Singleton Pattern
+class Singleton:
+    _instance = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+# Factory Pattern
+class AnimalFactory:
+    def create_animal(self, animal_type):
+        if animal_type == "dog":
+            return Dog()
+        elif animal_type == "cat":
+            return Cat()</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>8. Advanced Decorators</h2>
+                <p>Create decorators with arguments. Stack multiple decorators and handle decorator chaining.</p>
+                <div class="code-container">
+                    <pre><code>
+def retry(max_attempts, delay=1):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            attempts = 0
+            while attempts < max_attempts:
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    attempts += 1
+                    if attempts == max_attempts:
+                        raise e
+                    time.sleep(delay)
+        return wrapper
+    return decorator
+
+@retry(max_attempts=3, delay=2)
+def unstable_function():
+    # Some unstable operation
+    pass</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>9. Network Programming</h2>
+                <p>Create network applications. Handle sockets and implement network protocols.</p>
+                <div class="code-container">
+                    <pre><code>
+import socket
+
+# TCP Server
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('localhost', 8888))
+server.listen(5)
+
+while True:
+    client, addr = server.accept()
+    data = client.recv(1024)
+    client.send(b"Received: " + data)
+    client.close()</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>10. Advanced Database Operations</h2>
+                <p>Complex database interactions. Handle transactions and optimize queries.</p>
+                <div class="code-container">
+                    <pre><code>
+from sqlalchemy import create_engine, text
+from contextlib import contextmanager
+
+engine = create_engine('postgresql://user:pass@localhost/db')
+
+@contextmanager
+def transaction():
+    connection = engine.connect()
+    trans = connection.begin()
+    try:
+        yield connection
+        trans.commit()
+    except:
+        trans.rollback()
+        raise
+    finally:
+        connection.close()</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>11. System Programming</h2>
+                <p>Interact with operating system. Handle processes and system resources.</p>
+                <div class="code-container">
+                    <pre><code>
+import os
+import signal
+import subprocess
+
+def handle_signal(signum, frame):
+    print(f"Received signal: {signum}")
+
+signal.signal(signal.SIGTERM, handle_signal)
+
+# Run system command
+process = subprocess.Popen(['ls', '-l'], 
+                         stdout=subprocess.PIPE)
+output, error = process.communicate()</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>12. Advanced Testing</h2>
+                <p>Write complex test cases. Use mocking and test fixtures effectively.</p>
+                <div class="code-container">
+                    <pre><code>
+import pytest
+from unittest.mock import Mock, patch
+
+@pytest.fixture
+def database():
+    db = Database()
+    db.connect()
+    yield db
+    db.disconnect()
+
+def test_user_creation(database):
+    with patch('services.email.send') as mock_send:
+        user = User.create("test@example.com")
+        assert user.email == "test@example.com"
+        mock_send.assert_called_once()</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>13. Performance Optimization</h2>
+                <p>Optimize Python code performance. Profile and improve execution speed.</p>
+                <div class="code-container">
+                    <pre><code>
+import cProfile
+import line_profiler
+import memory_profiler
+
+@profile
+def memory_heavy_function():
+    return [i * i for i in range(1000000)]
+
+def cpu_heavy_function():
+    return sum(i * i for i in range(1000000))
+
+# Profile CPU usage
+profiler = cProfile.Profile()
+profiler.enable()
+cpu_heavy_function()
+profiler.disable()
+profiler.print_stats()</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>14. Advanced Data Structures</h2>
+                <p>Implement complex data structures. Create custom collections and containers.</p>
+                <div class="code-container">
+                    <pre><code>
+class BinarySearchTree:
+    class Node:
+        def __init__(self, value):
+            self.value = value
+            self.left = None
+            self.right = None
+    
+    def __init__(self):
+        self.root = None
+    
+    def insert(self, value):
+        if not self.root:
+            self.root = self.Node(value)
+        else:
+            self._insert_recursive(self.root, value)
+    
+    def _insert_recursive(self, node, value):
+        if value < node.value:
+            if node.left is None:
+                node.left = self.Node(value)
+            else:
+                self._insert_recursive(node.left, value)
+        else:
+            if node.right is None:
+                node.right = self.Node(value)
+            else:
+                self._insert_recursive(node.right, value)</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>15. Security and Cryptography</h2>
+                <p>Implement security features. Handle encryption and secure communication.</p>
+                <div class="code-container">
+                    <pre><code>
+from cryptography.fernet import Fernet
+import hashlib
+import secrets
+
+# Generate key
+key = Fernet.generate_key()
+f = Fernet(key)
+
+# Encrypt data
+message = b"Secret message"
+encrypted = f.encrypt(message)
+
+# Hash password
+def hash_password(password):
+    salt = secrets.token_bytes(16)
+    return hashlib.pbkdf2_hmac(
+        'sha256', 
+        password.encode(), 
+        salt, 
+        100000
+    )</code></pre>
+                </div>
+            </section>
+
+            <div class="navigation-buttons">
+                <button onclick="window.location.href='intermediate.html'" class="nav-button">← Back to Intermediate</button>
+                <button onclick="window.location.href='index.html'" class="nav-button">Back to Home →</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>Developed By <span class="highlight">Muhammad Samad</span></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html> 

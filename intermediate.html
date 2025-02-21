@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python - Intermediate Level</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">🐍 Python Learning</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="beginner.html">Beginner</a></li>
+            <li><a href="intermediate.html" class="active">Intermediate</a></li>
+            <li><a href="advanced.html">Advanced</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Intermediate <span class="highlight">Python</span></h1>
+        </header>
+
+        <div class="tutorial-content">
+            <section class="topic">
+                <h2>1. Object-Oriented Programming Basics</h2>
+                <p>Classes are blueprints for creating objects. They encapsulate data and behavior in a single unit.</p>
+                <div class="code-container">
+                    <pre><code>
+class Car:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+    
+    def display_info(self):
+        return f"{self.brand} {self.model}"
+
+my_car = Car("Toyota", "Camry")
+print(my_car.display_info())</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>2. Inheritance and Polymorphism</h2>
+                <p>Inheritance allows classes to inherit attributes and methods. Polymorphism enables using entities in multiple forms.</p>
+                <div class="code-container">
+                    <pre><code>
+class Animal:
+    def speak(self):
+        pass
+
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow!"</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>3. List Comprehensions</h2>
+                <p>List comprehensions create lists using a compact syntax. They're more readable and often faster than loops.</p>
+                <div class="code-container">
+                    <pre><code>
+# Create a list of squares
+squares = [x**2 for x in range(10)]
+
+# Filter even numbers
+evens = [x for x in range(20) if x % 2 == 0]
+
+# Nested comprehension
+matrix = [[i+j for j in range(3)] for i in range(3)]</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>4. Lambda Functions</h2>
+                <p>Lambda functions are small anonymous functions. They're useful for short operations and callbacks.</p>
+                <div class="code-container">
+                    <pre><code>
+# Sort by second element
+pairs = [(1, 'one'), (2, 'two'), (3, 'three')]
+sorted_pairs = sorted(pairs, key=lambda x: x[1])
+
+# Map with lambda
+numbers = [1, 2, 3, 4, 5]
+squares = map(lambda x: x**2, numbers)</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>5. Advanced File Operations</h2>
+                <p>Handle files with more complex operations. Process files in different modes and formats.</p>
+                <div class="code-container">
+                    <pre><code>
+import json
+
+# Write JSON
+data = {'name': 'John', 'age': 30}
+with open('data.json', 'w') as f:
+    json.dump(data, f)
+
+# Read CSV
+import csv
+with open('data.csv', 'r') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        print(row)</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>6. Exception Handling</h2>
+                <p>Create custom exceptions and handle multiple error types. Use finally blocks for cleanup.</p>
+                <div class="code-container">
+                    <pre><code>
+class CustomError(Exception):
+    pass
+
+try:
+    raise CustomError("Custom error message")
+except CustomError as e:
+    print(f"Caught error: {e}")
+finally:
+    print("Cleanup code")</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>7. Decorators</h2>
+                <p>Decorators modify function behavior. They add functionality to existing functions without changing their source code.</p>
+                <div class="code-container">
+                    <pre><code>
+def timer_decorator(func):
+    def wrapper(*args, **kwargs):
+        import time
+        start = time.time()
+        result = func(*args, **kwargs)
+        print(f"Time: {time.time() - start}")
+        return result
+    return wrapper
+
+@timer_decorator
+def slow_function():
+    import time
+    time.sleep(1)</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>8. Context Managers</h2>
+                <p>Context managers handle resource allocation and cleanup. They ensure proper handling of resources.</p>
+                <div class="code-container">
+                    <pre><code>
+from contextlib import contextmanager
+
+@contextmanager
+def file_manager(filename):
+    try:
+        f = open(filename, 'w')
+        yield f
+    finally:
+        f.close()
+
+with file_manager('test.txt') as f:
+    f.write('Hello World')</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>9. Regular Expressions</h2>
+                <p>Regular expressions match and manipulate text patterns. They're powerful tools for text processing.</p>
+                <div class="code-container">
+                    <pre><code>
+import re
+
+text = "Email: john@example.com"
+pattern = r'\w+@\w+\.\w+'
+
+# Find email
+email = re.search(pattern, text)
+print(email.group())
+
+# Replace pattern
+new_text = re.sub(pattern, "HIDDEN", text)</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>10. Modules and Packages</h2>
+                <p>Create and use modules and packages. Organize code into reusable components.</p>
+                <div class="code-container">
+                    <pre><code>
+# mymodule.py
+def greet(name):
+    return f"Hello, {name}!"
+
+# main.py
+from mymodule import greet
+from package.submodule import function
+
+if __name__ == "__main__":
+    print(greet("World"))</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>11. Advanced Collections</h2>
+                <p>Use specialized collection types. Collections module provides additional data structures.</p>
+                <div class="code-container">
+                    <pre><code>
+from collections import Counter, defaultdict, namedtuple
+
+# Counter
+words = ['apple', 'banana', 'apple', 'cherry']
+word_count = Counter(words)
+
+# defaultdict
+d = defaultdict(list)
+d['fruits'].append('apple')
+
+# namedtuple
+Point = namedtuple('Point', ['x', 'y'])</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>12. Iterators and Generators</h2>
+                <p>Create custom iterators and generators. Handle large datasets efficiently.</p>
+                <div class="code-container">
+                    <pre><code>
+class CountUpTo:
+    def __init__(self, max_value):
+        self.max_value = max_value
+    
+    def __iter__(self):
+        self.current = 0
+        return self
+    
+    def __next__(self):
+        if self.current >= self.max_value:
+            raise StopIteration
+        self.current += 1
+        return self.current</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>13. Advanced String Operations</h2>
+                <p>Use advanced string methods and formatting. Handle complex text processing tasks.</p>
+                <div class="code-container">
+                    <pre><code>
+# Advanced formatting
+data = {'name': 'John', 'age': 30}
+text = "{name} is {age} years old".format(**data)
+
+# String methods
+text = "  hello world  "
+cleaned = text.strip().title()
+parts = text.partition(' ')</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>14. Date and Time Operations</h2>
+                <p>Handle dates, times, and timestamps. Perform time-based calculations.</p>
+                <div class="code-container">
+                    <pre><code>
+from datetime import datetime, timedelta
+
+now = datetime.now()
+future = now + timedelta(days=7)
+
+# Format dates
+formatted = now.strftime("%Y-%m-%d %H:%M:%S")
+parsed = datetime.strptime("2023-01-01", "%Y-%m-%d")</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>15. Working with APIs</h2>
+                <p>Make HTTP requests and handle responses. Interact with web APIs.</p>
+                <div class="code-container">
+                    <pre><code>
+import requests
+
+# Get data from API
+response = requests.get('https://api.example.com/data')
+data = response.json()
+
+# Post data to API
+payload = {'key': 'value'}
+response = requests.post('https://api.example.com/post', 
+                        json=payload)</code></pre>
+                </div>
+            </section>
+
+            <div class="navigation-buttons">
+                <button onclick="window.location.href='beginner.html'" class="nav-button">← Back to Beginner</button>
+                <button onclick="window.location.href='advanced.html'" class="nav-button">Next: Advanced →</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>Developed By <span class="highlight">Muhammad Samad</span></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html> 

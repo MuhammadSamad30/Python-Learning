@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python - Beginner Level</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">🐍 Python Learning</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="beginner.html" class="active">Beginner</a></li>
+            <li><a href="intermediate.html">Intermediate</a></li>
+            <li><a href="advanced.html">Advanced</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Beginner <span class="highlight">Python</span></h1>
+        </header>
+
+        <div class="tutorial-content">
+            <section class="topic">
+                <h2>1. Variables and Data Types</h2>
+                <p>Variables store data and can be changed throughout the program. Python has several basic data types including strings, integers, floats, and booleans.</p>
+                <div class="code-container">
+                    <pre><code>
+name = "John"           # String
+age = 25               # Integer
+height = 1.75          # Float
+is_student = True      # Boolean
+
+print(f"Name: {name}, Age: {age}")</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>2. Basic Operators</h2>
+                <p>Operators perform operations on variables and values. Python supports arithmetic, comparison, and logical operators.</p>
+                <div class="code-container">
+                    <pre><code>
+# Arithmetic operators
+sum = 10 + 5
+difference = 10 - 5
+product = 10 * 5
+quotient = 10 / 5
+
+# Comparison operators
+is_equal = (10 == 5)
+is_greater = (10 > 5)</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>3. String Operations</h2>
+                <p>Strings can be manipulated using various methods. Python provides many built-in string operations.</p>
+                <div class="code-container">
+                    <pre><code>
+text = "Hello, Python!"
+print(text.upper())        # Convert to uppercase
+print(text.lower())        # Convert to lowercase
+print(text.split(','))     # Split string into list
+print(len(text))          # Get string length</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>4. Lists and List Operations</h2>
+                <p>Lists are ordered collections that can store multiple items. They are mutable and can contain different data types.</p>
+                <div class="code-container">
+                    <pre><code>
+fruits = ['apple', 'banana', 'orange']
+fruits.append('grape')     # Add item
+fruits.remove('apple')     # Remove item
+print(fruits[0])          # Access first item
+print(len(fruits))        # List length</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>5. If-Else Statements</h2>
+                <p>Conditional statements control program flow. If-else statements execute different code blocks based on conditions.</p>
+                <div class="code-container">
+                    <pre><code>
+age = 18
+if age >= 18:
+    print("You are an adult")
+elif age >= 13:
+    print("You are a teenager")
+else:
+    print("You are a child")</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>6. For Loops</h2>
+                <p>For loops iterate over sequences. They're commonly used to repeat actions a specific number of times.</p>
+                <div class="code-container">
+                    <pre><code>
+# Loop through a range
+for i in range(5):
+    print(i)
+
+# Loop through a list
+fruits = ['apple', 'banana', 'orange']
+for fruit in fruits:
+    print(fruit)</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>7. While Loops</h2>
+                <p>While loops repeat as long as a condition is true. They're useful when you don't know the number of iterations in advance.</p>
+                <div class="code-container">
+                    <pre><code>
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+
+# Break statement example
+while True:
+    if count >= 10:
+        break</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>8. Basic Functions</h2>
+                <p>Functions are reusable blocks of code. They help organize code and avoid repetition.</p>
+                <div class="code-container">
+                    <pre><code>
+def greet(name):
+    return f"Hello, {name}!"
+
+def add_numbers(a, b):
+    return a + b
+
+print(greet("John"))
+print(add_numbers(5, 3))</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>9. Dictionaries</h2>
+                <p>Dictionaries store key-value pairs. They provide fast lookups and are highly versatile.</p>
+                <div class="code-container">
+                    <pre><code>
+person = {
+    'name': 'John',
+    'age': 25,
+    'city': 'New York'
+}
+print(person['name'])
+person['email'] = 'john@example.com'</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>10. Input and Output</h2>
+                <p>Python can interact with users through input and output. The input() function reads user input, while print() displays output.</p>
+                <div class="code-container">
+                    <pre><code>
+name = input("Enter your name: ")
+age = int(input("Enter your age: "))
+print(f"Hello {name}, you are {age} years old")</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>11. Basic Error Handling</h2>
+                <p>Try-except blocks handle errors gracefully. They prevent programs from crashing when errors occur.</p>
+                <div class="code-container">
+                    <pre><code>
+try:
+    number = int(input("Enter a number: "))
+    result = 10 / number
+    print(result)
+except ValueError:
+    print("Please enter a valid number")
+except ZeroDivisionError:
+    print("Cannot divide by zero")</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>12. Simple File Operations</h2>
+                <p>Python can read and write files. File operations are essential for data persistence.</p>
+                <div class="code-container">
+                    <pre><code>
+# Writing to a file
+with open('example.txt', 'w') as file:
+    file.write('Hello, World!')
+
+# Reading from a file
+with open('example.txt', 'r') as file:
+    content = file.read()
+    print(content)</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>13. Basic Math Operations</h2>
+                <p>Python's math module provides additional mathematical functions. These are useful for calculations.</p>
+                <div class="code-container">
+                    <pre><code>
+import math
+
+print(math.sqrt(16))      # Square root
+print(math.pi)            # Pi value
+print(math.ceil(4.3))     # Round up
+print(math.floor(4.7))    # Round down</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>14. Type Conversion</h2>
+                <p>Python can convert between different data types. Type conversion is important for data processing.</p>
+                <div class="code-container">
+                    <pre><code>
+# Type conversion examples
+num_str = "123"
+num_int = int(num_str)    # String to integer
+num_float = float(num_str) # String to float
+str_num = str(num_int)    # Integer to string</code></pre>
+                </div>
+            </section>
+
+            <section class="topic">
+                <h2>15. Basic String Formatting</h2>
+                <p>String formatting makes text output more readable. Python offers multiple ways to format strings.</p>
+                <div class="code-container">
+                    <pre><code>
+name = "John"
+age = 25
+
+# Different formatting methods
+print("Name: %s, Age: %d" % (name, age))
+print("Name: {}, Age: {}".format(name, age))
+print(f"Name: {name}, Age: {age}")</code></pre>
+                </div>
+            </section>
+
+            <div class="navigation-buttons">
+                <button onclick="window.location.href='index.html'" class="nav-button">← Back to Home</button>
+                <button onclick="window.location.href='intermediate.html'" class="nav-button">Next: Intermediate →</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>Developed By <span class="highlight">Muhammad Samad</span></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html> 
